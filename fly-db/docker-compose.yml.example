@@ -1,0 +1,56 @@
+services:
+  postgres:
+    container_name: pg_fly_data_container
+    image: postgres:17.6
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "pegasdb"
+      POSTGRES_USER: "teleuser"
+      POSTGRES_PASSWORD: extR3@der
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - pegasdb-data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d/01_init.sql:/docker-entrypoint-initdb.d/01_init.sql # Создаём таблицы
+    ports:
+      - "5401:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U teleuser -d pegasdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 4G
+    networks:
+      - dbnet
+
+  # pgadmin:
+  #   container_name: pgadmin_fly_data_container
+  #   image: dpage/pgadmin4:9.8
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "pgadmin4@pgadmin.org"
+  #     PGADMIN_DEFAULT_PASSWORD: "pgAdm!n4"
+  #     PGADMIN_CONFIG_SERVER_MODE: "False"
+  #   volumes:
+  #     - pgadmin-data:/var/lib/pgadmin
+  #   ports:
+  #     - "5501:80"
+  #   restart: unless-stopped
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "0.5"
+  #         memory: 1G
+  #   networks:
+  #     - dbnet
+
+networks:
+  dbnet:
+    driver: bridge
+
+volumes:
+  pegasdb-data:
+  pgadmin-data:

@@ -1,0 +1,20 @@
+services:
+  go-status:
+    build: .
+    image: worker-status:${CORE_TAG-latest}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - dbnet
+    environment:
+      KAFKA_BROKER: kafka:9092
+      KAFKA_TOPIC: topic-fly-status
+      KAFKA_GROUP: topic-fly-file
+      DB_HOST: host.docker.internal
+      DB_PORT: 5401
+      DB_NAME: pegasdb
+      DB_USER: teleuser
+      DB_PASSWORD: extR3@der
+networks:
+  dbnet:
+    driver: bridge

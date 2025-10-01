@@ -1,0 +1,1 @@
+CREATE SUBSCRIPTION regions_subscription CONNECTION 'host=postgres-master port=5432 user=teleuser password=extR3@der dbname=zeusdb' PUBLICATION regions_publication;

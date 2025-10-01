@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+fly-app/node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -9,11 +11,13 @@
 /coverage
 
 # next.js
-/.next/
+fly-app/.next/
 /out/
 
 # production
 /build
+fly-app/build
+
 
 # misc
 .DS_Store
@@ -23,6 +27,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+fly-app/npm-debug.log*
+fly-app/yarn-debug.log*
+fly-app/yarn-error.log*
 
 # local env files
 .env*.local
@@ -34,3 +42,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+fly-app/.env.*
+fly-db/.env.*
+fly-report-db/.env.*
+kafka/.env.*
+minio/.env.*
+worker-file-reader/.env.*
+worker-status/.env.*
+
+fly-app/docker-compose.yml
+fly-db/docker-compose.yml
+fly-report-db/docker-compose.yml
+kafka/docker-compose.yml
+minio/docker-compose.yml
+worker-file-reader/docker-compose.yml
+worker-status/docker-compose.yml
+
+docker-compose.yml

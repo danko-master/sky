@@ -1,0 +1,21 @@
+services:
+  go-file-reader:
+    build: .
+    image: worker-file-reader:${CORE_TAG-latest}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      KAFKA_BROKER: host.docker.internal:9092
+      KAFKA_TOPIC: topic-fly-file # Основной топик чтения
+      KAFKA_GROUP: topic-fly-file # Группа чтения
+      KAFKA_TOPIC_STATUS: topic-fly-status # Топик отправки сообщения, следующий "топик в звене"
+      MINIO_ENDPOINT: host.docker.internal
+      MINIO_PORT: 9000
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_BUCKET_NAME: fly-telegraph
+      DB_HOST: host.docker.internal
+      DB_PORT: 5402
+      DB_NAME: zeusdb
+      DB_USER: teleuser
+      DB_PASSWORD: extR3@der
