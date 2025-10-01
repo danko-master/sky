@@ -1,0 +1,3 @@
+[submodule "fly-app"]
+	path = fly-app
+	url = git@github.com:danko-master/fly-app.git
